@@ -17,17 +17,8 @@ class DBHelper {
         conflictAlgorithm: sql.ConflictAlgorithm.replace);
   }
 
-  static Future<List<Map<String, dynamic>>> getData({
-    String? name,
-    String? email,
-  }) async {
+  static Future<List<Map<String, dynamic>>> getData() async {
     final db = await DBHelper.database();
-    if (name != null) {
-      return db.query('employees WHERE name=$name');
-    } else if (email != null) {
-      return db.query('employees WHERE email=$email');
-    } else {
-      return db.query('employees');
-    }
+    return db.query('employees');
   }
 }
