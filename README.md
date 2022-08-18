@@ -1,6 +1,7 @@
 # sankar_machine_test
 
-A new Flutter project.
+Architecture : Clean Architecture + Flutter Bloc (State Management)
+Database: Sqflite
 
 ## Getting Started
 
