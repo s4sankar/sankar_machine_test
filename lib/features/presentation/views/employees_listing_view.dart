@@ -17,7 +17,6 @@ class EmployeesListingView extends StatefulWidget {
 }
 
 class _EmployeesListingViewState extends State<EmployeesListingView> {
-  final TextEditingController controller = TextEditingController();
   late EmployeeBloc _employeeBloc;
 
   @override
@@ -27,12 +26,6 @@ class _EmployeesListingViewState extends State<EmployeesListingView> {
       _employeeBloc = context.read<EmployeeBloc>();
       _employeeBloc.add(FetchEmployees());
     });
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-    controller.dispose();
   }
 
   @override
@@ -52,7 +45,6 @@ class _EmployeesListingViewState extends State<EmployeesListingView> {
           } else if (state is Loaded) {
             return EmployessDisplayWidget(
               employees: state.employees,
-              textEditingController: controller,
               employeeSearchTextChanged: (value) {
                 _employeeBloc.add(SearchEmployee(value));
               },
@@ -72,12 +64,10 @@ class _EmployeesListingViewState extends State<EmployeesListingView> {
 
 class EmployessDisplayWidget extends StatelessWidget {
   final List<EmployeesEntity> employees;
-  final TextEditingController textEditingController;
   final Function(String) employeeSearchTextChanged;
   const EmployessDisplayWidget({
     Key? key,
     required this.employees,
-    required this.textEditingController,
     required this.employeeSearchTextChanged,
   }) : super(key: key);
 
@@ -90,7 +80,6 @@ class EmployessDisplayWidget extends StatelessWidget {
           children: [
             Flexible(
               child: TextField(
-                controller: textEditingController,
                 onChanged: ((value) => employeeSearchTextChanged(value)),
               ),
             ),
